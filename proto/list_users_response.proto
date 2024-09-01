@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+option go_package = "./;generated";
+
+package users.v1;
+
+import "user.proto";
+import "paging_metadata.proto";
+
+message ListUsersResponse {
+  PagingMetadata paging = 1;
+  repeated User users = 2;
+}

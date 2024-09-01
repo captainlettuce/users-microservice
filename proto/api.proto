@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+option go_package = "./;generated";
+
+package users.v1;
+
+import "add_user_request.proto";
+import "add_user_response.proto";
+import "update_user_request.proto";
+import "update_user_response.proto";
+import "subscription_request.proto";
+import "subscription_response.proto";
+import "delete_user_request.proto";
+import "delete_user_response.proto";
+import "list_users_request.proto";
+import "list_users_response.proto";
+
+service usersService {
+  // add - add a new user, input validation is left to the caller
+  rpc add (AddUserRequest) returns (AddUserResponse);
+  // update - update an existing user, input validation is left to the caller
+  rpc update (UpdateUserRequest) returns (UpdateUserResponse);
+  // delete - delete an existing user, no error is returned if the user does not exist
+  rpc delete (DeleteUserRequest) returns (DeleteUserResponse);
+  // list - list paginated, filtered, users
+  rpc list (ListUsersRequest) returns (ListUsersResponse);
+
+  // subscribe - subscribe to user changes, optionally specifying userId or changeType to listen for
+  rpc subscribe (SubscriptionRequest) returns (stream SubscriptionResponse);
+}

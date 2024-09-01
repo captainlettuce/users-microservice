@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+option go_package = "./;generated";
+
+package users.v1;
+
+message Paging {
+  // limit has to be a positive integer
+  sint64 limit = 1;
+  sint64 offset = 2;
+}

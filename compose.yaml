@@ -1,0 +1,27 @@
+services:
+  users:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.prod
+    environment:
+      MONGO_URI: "mongodb://mongo:27017"
+      SHUTDOWN_GRACE: 10
+    ports:
+      - 8000:8000
+    depends_on:
+      mongo:
+        condition: service_healthy
+      nats:
+        condition: service_started # the nats health-service seems annoying to implement, relying on mongo being slowest
+
+  mongo:
+    image: mongo:7
+    healthcheck:
+      test: [ "CMD", "mongosh", "--eval", "db.adminCommand('ping')" ]
+      interval: 2s
+      timeout: 2s
+      retries: 10
+      start_period: 2s
+
+  nats:
+    image: nats:2.10-alpine

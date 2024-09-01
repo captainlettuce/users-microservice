@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+option go_package = "./;generated";
+
+package users.v1;
+
+import "subscription_parameters.proto";
+
+message SubscriptionRequest {
+  SubscriptionParameters params = 1;
+}
+

@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+option go_package = "./;generated";
+
+package users.v1;
+
+message PagingMetadata {
+  // count represent the total count for the paginated query at the time of making the query
+  uint64 count = 1;
+}

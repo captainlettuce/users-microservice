@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+option go_package = "./;generated";
+
+package users.v1;
+
+import "google/protobuf/field_mask.proto";
+import "user.proto";
+import "user_search_filter.proto";
+
+message UpdateUserRequest {
+  // user is the fields to be set, masked by update_mask
+  // according to https://protobuf.dev/reference/protobuf/google.protobuf/#field-mask
+  User user = 1;
+
+  // filter is used to match what users are to be updated
+  SearchFilter filter = 2;
+
+  optional google.protobuf.FieldMask update_mask = 3;
+}

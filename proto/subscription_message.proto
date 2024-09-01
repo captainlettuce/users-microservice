@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+option go_package = "./;generated";
+
+package users.v1;
+
+import "user_change_type.proto";
+
+message SubscriptionMessage {
+  string user_id = 1;
+  UserChangeType change_type = 2;
+}
