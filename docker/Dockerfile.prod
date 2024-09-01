@@ -1,0 +1,21 @@
+FROM golang:1.22-alpine3.20 as builder
+
+ADD . /app
+
+WORKDIR /app
+
+RUN apk --no-cache add protobuf protobuf-dev
+
+RUN go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.28
+RUN go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.2
+RUN go install github.com/vektra/mockery/v2@v2.43.2
+
+RUN go generate
+
+RUN go build -o server ./cmd/users
+
+FROM alpine:3.20
+
+COPY --from=builder /app/server /usr/bin/server
+
+CMD ["sh", "-c", "server"]

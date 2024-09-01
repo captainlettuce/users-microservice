@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+option go_package = "./;generated";
+
+package users.v1;
+
+import "user_search_filter.proto";
+import "paging.proto";
+
+message ListUsersRequest {
+  SearchFilter filters = 1;
+  Paging paging = 2;
+}

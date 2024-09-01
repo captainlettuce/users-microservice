@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+option go_package = "./;generated";
+
+package users.v1;
+
+import "google/protobuf/timestamp.proto";
+
+
+// timeFilter is a generic filter supporting filters on both open and closed timeranges
+message TimeFilter {
+  optional google.protobuf.Timestamp before = 1;
+  optional google.protobuf.Timestamp after = 2;
+}

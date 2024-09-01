@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+option go_package = "./;generated";
+
+package users.v1;
+
+enum UserChangeType {
+  UNKNOWN = 0;
+  CREATED = 1;
+  UPDATED = 2;
+  DELETED = 3;
+}

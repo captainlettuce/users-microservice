@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+option go_package = "./;generated";
+
+package users.v1;
+
+import "google/protobuf/timestamp.proto";
+import "time_filter.proto";
+
+message SearchFilter {
+  repeated string ids = 1; // array of uuidv4's
+  optional string first_name = 2;
+  optional string last_name = 3;
+  optional string nickname = 4;
+  optional string email = 6;
+  repeated string countries = 7;
+
+  optional TimeFilter created = 8; // filter on created_at
+  optional TimeFilter updated = 9; // filter on updated_at
+}
+

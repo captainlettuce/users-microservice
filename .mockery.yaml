@@ -1,0 +1,18 @@
+config:
+  filename: "mock_{{.InterfaceName}}.go"
+
+packages:
+  github.com/captainlettuce/users-microservice/internal:
+    config:
+      outpkg: "mocks"
+      dir: "internal/mocks"
+    interfaces:
+      UserService:
+      UserRepository:
+      PubSubService:
+  github.com/captainlettuce/users-microservice/generated:
+    config:
+      outpkg: "generated_mocks"
+      dir: "generated/generated_mocks"
+    interfaces:
+      UsersService_SubscribeServer:

@@ -1,0 +1,47 @@
+name: users-develop
+
+services:
+  users:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.dev
+    environment:
+      MONGO_URI: "mongodb://mongo:27017"
+      DEBUG: true
+      LOG_FORMAT: text
+      SHUTDOWN_GRACE: 1
+    volumes:
+      - .:/app
+    ports:
+      - 127.0.0.1:40000:40000
+      - 8000:8000
+    logging:
+      driver: local
+      options:
+        max-size: 5m
+
+    # the startup order for dev env might be a little broken, but it's better than needing to launch
+    # nats and mongo to generate mocks for example
+
+#    depends_on:
+#      mongo:
+#        condition: service_healthy
+#      nats:
+#        condition: service_started
+
+  mongo:
+    image: mongo:7
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 2s
+      timeout: 2s
+      retries: 10
+      start_period: 2s
+    logging:
+      driver: local
+      options:
+        max-size: 5m
+
+
+  nats:
+    image: nats:2.10-alpine
